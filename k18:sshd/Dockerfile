@@ -8,6 +8,7 @@ LABEL description="kerberos 2018-2019"
 RUN mkdir /opt/docker
 RUN dnf -y install krb5-workstation vim procps tree openssh-server openssh-clients
 COPY * /opt/docker/
+RUN chmod +x /opt/docker/*.sh
 RUN cp /opt/docker/krb5.conf /etc/krb5.conf
 WORKDIR /opt/docker
 CMD ["/opt/docker/startup.sh"]
