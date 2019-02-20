@@ -5,5 +5,5 @@
 
 /opt/docker/install.sh && echo "Install Ok"
 /usr/sbin/krb5kdc
-/usr/sbin/kadmind
-/bin/bash
+/usr/sbin/kadmind -nofork
+
