@@ -6,7 +6,7 @@ FROM fedora:27
 LABEL author="@edt ASIX M06-ASO"
 LABEL description="kerberos 2018-2019"
 RUN mkdir /opt/docker
-RUN dnf -y install krb5-workstation vim procps tree openssh-server openssh-clients
+RUN dnf -y install krb5-workstation vim procps tree openssh-server openssh-clients passwd
 COPY * /opt/docker/
 RUN chmod +x /opt/docker/*.sh
 RUN cp /opt/docker/krb5.conf /etc/krb5.conf
