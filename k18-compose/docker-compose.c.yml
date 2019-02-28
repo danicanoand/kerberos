@@ -1,26 +1,67 @@
-version: "2"
+version: "3"
 services:
   kserver:
-    image: edtasixm11/k18:kserver
+    image: danicano/k18:kserver
     container_name: kserver.edt.org
     hostname: kserver.edt.org
+    deploy: 
+      replicas: 3
     volumes:
+      #bind mount
+      #volum data "krb5data"
+      #guerdara en "krb5data" los datos del docker de "/var/kerberos"
+      #guerdara en /var/lib/docker/volumes/
       - "krb5data:/var/kerberos"
     networks:
       - mynet
   sshd:
-    image: edtasixm11/k18:sshd
+    image: danicano/k18:sshd
     container_name: sshd.edt.org
     hostname: sshd.edt.org
     networks:
-      - mynet        
+      - mynet
   portainer:
     image: portainer/portainer
     ports:
       - "9000:9000"
+    volumes:
+      #bind mount
+      #directori host: directori container
+      #guerdara en "/var/run/docker.sock" los datos del docker de "/var/run/docker.sock"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - mynet
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - mynet
 networks:
   mynet:
+volumes:
+  krb5data:
+
+
+
+
+#borrar e instalar nueva version docker
+
+#dnf remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+#dnf -y install dnf-plugins-core
+#dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+#dnf install docker-ce docker-ce-cli containerd.io
+
+
+#docker swarm init
+#docker node ls
+#docker swarm join "manager|worker"
+#docker stack deploy -c docker-compose.yml myapp
+#docker ps
+#docker stack ls
+#docker stack ps myapp 
+#docker service ls
+
+#docker stack rm myapp
