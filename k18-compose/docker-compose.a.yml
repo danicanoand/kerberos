@@ -1,0 +1,24 @@
+version: "3"
+services:
+  kserver:
+    image: edtasixm11/k18:kserver
+    hostname: kserver.edt.org
+    deploy: 
+      replicas: 3
+    volumes:
+      - "krb5data:/var/kerberos"
+    networks:
+      - mynet
+  sshd:
+    image: edtasixm11/k18:sshd
+    hostname: sshd.edt.org
+    networks:
+      - mynet        
+networks:
+  mynet:
+volumes:
+  krb5data:
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.40.0.199,nolock,soft,rw"
+      device: ":/opt/kdata"

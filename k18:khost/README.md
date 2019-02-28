@@ -1,17 +1,21 @@
-# Kerberos Server
+# Kerberos khost
 ## @edt ASIX M11-SAD Curs 2018-2019
 
-**danicano/k18:khost** client  kerberos simple. Contacta al 
-  servidor *kserver.edt.org*. Permet la autenticació dels 
-  usuaris habituals pere, pau (admin), jordi, anna, marta, 
-  marta/admin i julia.
+**edtasixm11/k18:khost** host client de kerberos. Simplement amb eines
+  kinit, klist i kdestroy (no pam). El servidor al que contacta s'ha
+  de dir *kserver.edt.org*.
+  
+
+**Bàsic:**
+
+Host client de kerberos. Per generar un host client bàsic, que permei accedir al servidor
+per verificar la connexió i obtenir tickets, cal:
+
+ * instal·lar krb5-workstation
+ * configurar /etc/krb5.conf
 
 Execució:
 ```
-docker netweork create mynet
-
-docker run --rm --name kserver.edt.org -h kserver.edt.org --network mynet -d danicano/k18:kserver
-
-docker run --rm --name khost -h khost --network mynet -it danicano/k18:khost
+docker run --rm --name khost.edt.org -h khost.edt.org --net mynet -s edtasixm11/k18:khost
 ```
 

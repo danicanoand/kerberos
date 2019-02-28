@@ -1,0 +1,22 @@
+version: "3"
+services:
+  kserver:
+    image: edtasixm11/k18:kserver
+    container_name: kserver.edt.org
+    hostname: kserver.edt.org
+    deploy: 
+      replicas: 3
+    volumes:
+      - "krb5data:/var/kerberos"
+    networks:
+      - mynet
+  sshd:
+    image: edtasixm11/k18:sshd
+    container_name: sshd.edt.org
+    hostname: sshd.edt.org
+    networks:
+      - mynet        
+networks:
+  mynet:
+volumes:
+  krb5data:
