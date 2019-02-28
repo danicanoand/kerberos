@@ -1,24 +1,31 @@
 version: "2"
 services:
   kserver:
-    image: edtasixm11/k18:kserver
+    image: danicano/k18:kserver
     container_name: kserver.edt.org
     hostname: kserver.edt.org
     volumes:
+      #bind mount
+      #volum data "krb5data"
+      #guerdara en "krb5data" los datos del docker de "/var/kerberos"
+      #guerdara en /var/lib/docker/volumes/
       - "krb5data:/var/kerberos"
     networks:
       - mynet
   sshd:
-    image: edtasixm11/k18:sshd
+    image: danicano/k18:sshd
     container_name: sshd.edt.org
     hostname: sshd.edt.org
     networks:
-      - mynet        
+      - mynet
   portainer:
     image: portainer/portainer
     ports:
       - "9000:9000"
     volumes:
+      #bind mount
+      #directori host: directori container
+      #guerdara en "/var/run/docker.sock" los datos del docker de "/var/run/docker.sock"
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
       - mynet
@@ -26,3 +33,6 @@ networks:
   mynet:
 volumes:
   krb5data:
+
+#docker-compose up -d
+#docker-compose down

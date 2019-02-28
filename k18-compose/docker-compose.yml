@@ -1,9 +1,11 @@
-version: "2"
+version: "3"
 services:
   kserver:
     image: danicano/k18:kserver
     container_name: kserver.edt.org
     hostname: kserver.edt.org
+    deploy: 
+      replicas: 3
     volumes:
       #bind mount
       #volum data "krb5data"
@@ -33,3 +35,5 @@ networks:
   mynet:
 volumes:
   krb5data:
+
+#docker stack deploy -c docker-compose.yml myapp
